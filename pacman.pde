@@ -12,11 +12,11 @@ class PacmanType {
   PacmanType(int x, int y) {
     _gridSize = maze.getSize();
     _halfGridSize = _gridSize / 2;
-    _x = x - (x % _gridSize) + _halfGridSize;
-    _y = y - (y % _gridSize) + _halfGridSize;
+    _x = x - (x % _gridSize);
+    _y = y - (y % _gridSize);
     _mouth = 0;
     _mouthSize = PI/4;
-    _size = 90;
+    _size = _gridSize * 9 / 10;
     _moveRight();
   }
   void draw() {
@@ -44,21 +44,21 @@ class PacmanType {
       _y = newY;
     }
 
-     //  if ((_x % _gridSize) == 0 && (_y % _gridSize) == 0) {
-    switch (_dir) {
-    case 0:
-      _moveRight();
-      break;
-    case 1:
-      _moveUp();
-      break;
-    case 2:
-      _moveLeft();
-      break;
-    case 3:
-      _moveDown();
-      break;
-      //   }
+    if ((_x % _gridSize) == 0 && (_y % _gridSize) == 0) {
+      switch (_dir) {
+      case 0:
+        _moveRight();
+        break;
+      case 1:
+        _moveUp();
+        break;
+      case 2:
+        _moveLeft();
+        break;
+      case 3:
+        _moveDown();
+        break;
+      }
     }
 
     if ((_counter % 10) == 0) {
@@ -87,7 +87,6 @@ class PacmanType {
   }
   void moveUp() {
     _dir = 1;
-    println("moveup");
   }
   void _moveUp() {
     _moveX = 0;
@@ -109,6 +108,7 @@ class MazeType {
   boolean _data[][];
 
   MazeType() {
+    /*
     String repr[] = {
       "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 
       "X        X                       X", 
@@ -125,6 +125,16 @@ class MazeType {
       "X     X     X                    X", 
       "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 
     };
+    */
+    String repr[] = {
+      "XXXXXXXX", 
+      "X      X", 
+      "X XX   X", 
+      "X X    X", 
+      "X      X",      
+      "X X    X", 
+      "XXXXXXXX", 
+    };
 
     _data = new boolean[repr.length][];
     for (int y = 0; y < repr.length; ++y) {
@@ -139,8 +149,8 @@ class MazeType {
     return _size;
   }
   boolean isSpace(int x, int y) {
-    int row = y / _size;
-    int col = x / _size;
+    int row = (y + 50) / _size;
+    int col = (x + 50) / _size;
     //println(x, y, row, col);
     if ((row < 0 || row >= _data.length) ||
       (col < 0 || col >= _data[row].length)) {
@@ -154,7 +164,7 @@ class MazeType {
         if (_data[y][x]) {
           noStroke();
           fill(0, 0, 254);
-          rect(x * _size + 50, y * _size + 50, _size, _size);
+          rect(x * _size, y * _size, _size, _size);
         }
       }
     }
@@ -176,8 +186,8 @@ PacmanType pacman;
 MazeType maze;
 EtenType eten;
 void setup() {
-  fullScreen();
-  //size(400, 400);
+  //fullScreen();
+  size(800, 800);
   maze = new MazeType();
   pacman = new PacmanType(width / 2, height / 2);
 }
@@ -192,17 +202,23 @@ void draw() {
 
 void keyPressed() {
   if (key == CODED) {
-    if (keyCode == UP)
+    switch (keyCode) {
+    case UP:
       pacman.moveUp();
-    println("up");
-    if (keyCode == DOWN)
+      println("up");
+      break;
+    case DOWN:
       pacman.moveDown();
-    println("down");
-    if (keyCode == LEFT)
+      println("down");
+      break;
+    case LEFT:
       pacman.moveLeft();
-    println("left");
-    if (keyCode == RIGHT)
+      println("left");
+      break;
+    case RIGHT:
       pacman.moveRight();
-    println("right");
+      println("right");
+      break;
+    }
   }
 }
