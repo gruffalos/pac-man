@@ -105,43 +105,28 @@ class PacmanType {
 
 class MazeType {
   final int _size = 100;
-  boolean _data[][];
+  int _data[][];
 
   MazeType() {
-    /*
     String repr[] = {
-      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 
-      "X        X                       X", 
-      "X XX XXX X XXX XX                X", 
-      "X XX XXX X XXX XX                X", 
-      "X                                X", 
-      "X XXX X  X  X XXX                X", 
-      //"X                                X",
-      "X     X  X  X                    X", 
-      "X     XX X XX                    X", 
-      //"X                                 X",
-      //"X                                 X",
-      //"X                                 X",
-      "X     X     X                    X", 
-      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 
-    };
-    */
-    String repr[] = {
-      "XXXXXXXX", 
-      "X      X", 
-      "X XX   X", 
-      "X X    X", 
-      "X      X",      
-      "X X    X", 
-      "XXXXXXXX", 
+      "XXXXXXXXXXXXXXXXXX", 
+      "X        X      XX", 
+      "X XX XXX X XXX XX", 
+      "X XX XXX X XXX XX", 
+      "X               X", 
+      "X XXX X  X  X XXX", 
+      "X     X  X  X   X", 
+      "XXX   XX X XX   X", 
+      "X     X     X   X", 
+      "XXXXXXXXXXXXXXXXX", 
     };
 
-    _data = new boolean[repr.length][];
+    _data = new int[repr.length][];
     for (int y = 0; y < repr.length; ++y) {
       String row = repr[y];
-      _data[y] = new boolean[row.length()];
+      _data[y] = new int[row.length()];
       for (int x = 0; x < row.length(); ++x) {
-        _data[y][x] = (row.charAt(x) == 'X');
+        _data[y][x] = (int(row.charAt(x) == 'X'));
       }
     }
   }
@@ -172,24 +157,28 @@ class MazeType {
 }  
 
 class EtenType {
-  int _etenX;
-  int _etenY;
-  EtenType(int x, int y) {
-    _etenX = x;
-    _etenY = y;
-  }
-  void draw() {
-    //point()
+  int ja = 0;
+  void Eten_maken() {
+    fill(#ECED3C);
+    strokeWeight(200);
+    if ( ja == 0) {
+      if (pacman._y + 50 == 650 && pacman._x + 50 == 850) {
+        ja = 1;
+      } else {
+        circle(850, 650, 20);
+      }
+    }
   }
 }
 PacmanType pacman;
 MazeType maze;
 EtenType eten;
 void setup() {
-  //fullScreen();
-  size(800, 800);
+  fullScreen();
+  //size(800, 800);
   maze = new MazeType();
   pacman = new PacmanType(width / 2, height / 2);
+  eten = new EtenType();
 }
 
 void draw() {
@@ -197,6 +186,7 @@ void draw() {
   pacman.update();
   pacman.draw();
   maze.draw();
+  eten.Eten_maken();
   //eten.draw();
 }
 
