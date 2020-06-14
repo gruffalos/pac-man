@@ -1,7 +1,7 @@
 class PacmanType {
   final int _speed = 10;
-  int _x = 900;
-  int _y = 600; 
+  int _x;
+  int _y; 
   int _moveX, _moveY;
   int _dir;
   float _mouth, _mouthSize;
@@ -9,14 +9,15 @@ class PacmanType {
   int _halfGridSize;
   int _gridSize;
 
-  PacmanType(int x, int y) {
-    _gridSize = maze.getSize();
-    _halfGridSize = _gridSize / 2;
-    _x = x - (x % _gridSize);
-    _y = y - (y % _gridSize);
+  PacmanType(int col, int row, int dir, int gridSize) {
+    _halfGridSize = gridSize / 2;
+    _x = col * gridSize;
+    _y = row * gridSize;
+    _dir = dir;
+    _gridSize = gridSize;
     _mouth = 0;
     _mouthSize = PI/4;
-    _size = _gridSize * 9 / 10;
+    _size = gridSize * 9 / 10;
     _moveRight();
   }
   void draw() {
@@ -105,18 +106,21 @@ class PacmanType {
 
 class MazeType {
   final int _size = 100;
+  final int WALL = 1;
+  final int VOID = 0;
+  PacmanType _pacman;
   int _data[][];
 
   MazeType() {
     String repr[] = {
-      "XXXXXXXXXXXXXXXXXX", 
-      "X        X      XX", 
+      "XXXXXXXXXXXXXXXXX", 
+      "X>       X      X", 
       "X XX XXX X XXX XX", 
       "X XX XXX X XXX XX", 
       "X               X", 
       "X XXX X  X  X XXX", 
       "X     X  X  X   X", 
-      "XXX   XX X XX   X", 
+      "XXXXX XX X XX XXX", 
       "X     X     X   X", 
       "XXXXXXXXXXXXXXXXX", 
     };
@@ -126,27 +130,34 @@ class MazeType {
       String row = repr[y];
       _data[y] = new int[row.length()];
       for (int x = 0; x < row.length(); ++x) {
-        _data[y][x] = (int(row.charAt(x) == 'X'));
+        switch (row.charAt(x)) {
+        case 'X':
+          _data[y][x] = WALL;
+          break;
+        case '>':
+          _pacman = new PacmanType(x, y, 0, _size);
+        case ' ':
+        default:
+          _data[y][x] = VOID;
+        }
       }
     }
   }
-  int getSize() {
-    return _size;
-  }
   boolean isSpace(int x, int y) {
-    int row = (y + 50) / _size;
-    int col = (x + 50) / _size;
+    int row = (y + _size / 2) / _size;
+    int col = (x + _size / 2) / _size;
     //println(x, y, row, col);
     if ((row < 0 || row >= _data.length) ||
       (col < 0 || col >= _data[row].length)) {
       return false;
     }
-    return !_data[row][col];
+    return ((_data[row][col] == WALL) ? false : true);
   }
   void draw() {
     for (int y = 0; y < _data.length; ++y) {
       for (int x = 0; x < _data[y].length; ++x) {
-        if (_data[y][x]) {
+        switch (_data[y][x]) {
+        case WALL:
           noStroke();
           fill(0, 0, 254);
           rect(x * _size, y * _size, _size, _size);
@@ -156,29 +167,14 @@ class MazeType {
   }
 }  
 
-class EtenType {
-  int ja = 0;
-  void Eten_maken() {
-    fill(#ECED3C);
-    strokeWeight(200);
-    if ( ja == 0) {
-      if (pacman._y + 50 == 650 && pacman._x + 50 == 850) {
-        ja = 1;
-      } else {
-        circle(850, 650, 20);
-      }
-    }
-  }
-}
+
 PacmanType pacman;
 MazeType maze;
-EtenType eten;
 void setup() {
   fullScreen();
   //size(800, 800);
   maze = new MazeType();
-  pacman = new PacmanType(width / 2, height / 2);
-  eten = new EtenType();
+  pacman = maze._pacman; // XXX
 }
 
 void draw() {
@@ -186,8 +182,6 @@ void draw() {
   pacman.update();
   pacman.draw();
   maze.draw();
-  eten.Eten_maken();
-  //eten.draw();
 }
 
 void keyPressed() {
