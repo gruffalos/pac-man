@@ -106,6 +106,7 @@ class PacmanType {
 
 class MazeType {
   final int _size = 100;
+  final int FOOD = 2;
   final int WALL = 1;
   final int VOID = 0;
   PacmanType _pacman;
@@ -117,7 +118,7 @@ class MazeType {
       "X>       X      X", 
       "X XX XXX X XXX XX", 
       "X XX XXX X XXX XX", 
-      "X               X", 
+      "X ffffffffffff  X", 
       "X XXX X  X  X XXX", 
       "X     X  X  X   X", 
       "XXXXX XX X XX XXX", 
@@ -133,6 +134,9 @@ class MazeType {
         switch (row.charAt(x)) {
         case 'X':
           _data[y][x] = WALL;
+          break;
+        case 'f':
+          _data[y][x] = FOOD;
           break;
         case '>':
           _pacman = new PacmanType(x, y, 0, _size);
@@ -161,6 +165,11 @@ class MazeType {
           noStroke();
           fill(0, 0, 254);
           rect(x * _size, y * _size, _size, _size);
+          break;
+        case FOOD:
+          fill(#E8F743);
+          stroke(#E8F743);
+          circle(x * _size + _size / 2, y * _size + _size / 2, _size / 10);
         }
       }
     }
