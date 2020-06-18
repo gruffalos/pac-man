@@ -45,7 +45,14 @@ class PacmanType {
       _y = newY;
     }
 
+
+
     if ((_x % _gridSize) == 0 && (_y % _gridSize) == 0) {
+      // is de nieuwe _x en _y gelijk aan voedsel? dan pak voedsel
+      fill(255);
+      stroke(255);
+      circle(newX * _size + _size / 2, newY * _size + _size / 2, _size / 10);
+
       switch (_dir) {
       case 0:
         _moveRight();
@@ -106,6 +113,7 @@ class PacmanType {
 
 class MazeType {
   final int _size = 100;
+  final int BIG_FOOD = 3;
   final int FOOD = 2;
   final int WALL = 1;
   final int VOID = 0;
@@ -120,7 +128,7 @@ class MazeType {
       "X XX XXX X XXX XX", 
       "X ffffffffffff  X", 
       "X XXX X  X  X XXX", 
-      "X     X  X  X   X", 
+      "X     XF X  X   X", 
       "XXXXX XX X XX XXX", 
       "X     X     X   X", 
       "XXXXXXXXXXXXXXXXX", 
@@ -137,6 +145,9 @@ class MazeType {
           break;
         case 'f':
           _data[y][x] = FOOD;
+          break;
+        case 'F':
+          _data[y][x] = BIG_FOOD;
           break;
         case '>':
           _pacman = new PacmanType(x, y, 0, _size);
@@ -170,6 +181,12 @@ class MazeType {
           fill(#E8F743);
           stroke(#E8F743);
           circle(x * _size + _size / 2, y * _size + _size / 2, _size / 10);
+          break;
+        case BIG_FOOD:
+          fill(#E8F743);
+          stroke(#E8F743);
+          circle(x * _size + _size / 2, y * _size + _size / 2, _size / 5);
+          break;
         }
       }
     }
