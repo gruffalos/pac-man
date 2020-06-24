@@ -122,16 +122,18 @@ class MazeType {
 
   MazeType() {
     String repr[] = {
-      "XXXXXXXXXXXXXXXXX", 
-      "X>       X      X", 
-      "X XX XXX X XXX XX", 
-      "X XX XXX X XXX XX", 
-      "X ffffffffffff  X", 
-      "X XXX X  X  X XXX", 
-      "X     XF X  X   X", 
-      "XXXXX XX X XX XXX", 
-      "X     X     X   X", 
-      "XXXXXXXXXXXXXXXXX", 
+     //12345678911131517
+      "XXXXXXXXXXXXXXXXX",// 1
+      "XffffffXffffffffX",// 2
+      "XfXfXfXfffXfXfXfX",// 3
+      "XfXfffXXfXXfffXfX",// 4
+      "X   X X   X X   X",// 5
+      "XXX X   X   X XXX",// 6
+      "X   X X   X X   X",// 7
+      "X X   XX XX   X X",// 8
+      "X X X X ^ X X X X",// 9
+      "X       X       X",// 10
+      "XXXXXXXXXXXXXXXXX",// 11
     };
 
     _data = new int[repr.length][];
@@ -149,7 +151,7 @@ class MazeType {
         case 'F':
           _data[y][x] = BIG_FOOD;
           break;
-        case '>':
+        case '^':
           _pacman = new PacmanType(x, y, 0, _size);
         case ' ':
         default:
