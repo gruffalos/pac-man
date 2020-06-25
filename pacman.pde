@@ -77,6 +77,17 @@ class PacmanType {
       }
     }
   }
+  void eten_verwijderen() {
+    if ((_x % _gridSize) == 0 && (_y % _gridSize) == 0) {
+      // is de nieuwe _x en _y gelijk aan voedsel? dan pak voedsel
+      //point(_x * _size + _size / 2, _y * _size + _size / 2, _size / 10);
+      fill(255);
+      ellipse(_x + 50,_y + 50, 20, 20);
+      int food_etted = 0;
+      ++food_etted;
+      println(food_etted);
+    }
+  }
   void moveLeft() {
     _dir = 2;
   }
