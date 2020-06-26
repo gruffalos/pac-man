@@ -1,20 +1,20 @@
 class PacmanType {
-  int _speed;
+  int _gridSize;
   int _x;
   int _y; 
+  int _speed;
   int _moveX, _moveY;
   int _dir;
   float _mouth, _mouthSize;
   int _counter, _size;
-  int _gridSize;
 
-  PacmanType(int col, int row, int dir, int gridSize) {
+  PacmanType(int col, int row, int gridSize) {
     // sizes
     _gridSize = gridSize;
     // where is pacman?
     _x = col * gridSize;
     _y = row * gridSize;
-    _dir = dir;
+    _dir = 0; // right
     // default movement
     _speed = gridSize / 10;
     _moveRight();
@@ -185,29 +185,29 @@ class MazeConstructor {
     };
 
     int data[][] = new int[repr.length][];
-    for (int y = 0; y < repr.length; ++y) {
-      String row = repr[y];
-      data[y] = new int[row.length()];
-      for (int x = 0; x < row.length(); ++x) {
-        switch (row.charAt(x)) {
+    for (int row = 0; row < repr.length; ++row) {
+      String sourceRow = repr[row];
+      data[row] = new int[sourceRow.length()];
+      for (int col = 0; col < sourceRow.length(); ++col) {
+        switch (sourceRow.charAt(col)) {
         case 'X':
-          data[y][x] = MazeType.WALL;
+          data[row][col] = MazeType.WALL;
           break;
         case 'f':
-          data[y][x] = MazeType.FOOD;
+          data[row][col] = MazeType.FOOD;
           break;
         case 'F':
-          data[y][x] = MazeType.BIG_FOOD;
+          data[row][col] = MazeType.BIG_FOOD;
           break;
         case '^':
           if (pacman != null) {
             throw new RuntimeException("already have a pacman");
           }
-          pacman = new PacmanType(x, y, 0, _gridSize);
+          pacman = new PacmanType(row, col, _gridSize);
           pacman.moveUp();
         case ' ':
         default:
-          data[y][x] = MazeType.VOID;
+          data[row][col] = MazeType.VOID;
         }
       }
     }
