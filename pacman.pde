@@ -226,24 +226,24 @@ void draw() {
 }
 
 void keyPressed() {
-  if (key == CODED) {
-    switch (keyCode) {
-    case UP:
-      pacman.moveUp();
-      println("up");
-      break;
-    case DOWN:
-      pacman.moveDown();
-      println("down");
-      break;
-    case LEFT:
-      pacman.moveLeft();
-      println("left");
-      break;
-    case RIGHT:
-      pacman.moveRight();
-      println("right");
-      break;
-    }
+  switch (key == CODED ? keyCode : key) {
+  case UP:
+    pacman.moveUp();
+    println("up");
+    break;
+  case DOWN:
+    pacman.moveDown();
+    println("down");
+    break;
+  case LEFT:
+    pacman.moveLeft();
+    println("left");
+    break;
+  case RIGHT:
+    pacman.moveRight();
+    println("right");
+    break;
+  case 'q':
+    exit();
   }
 }
