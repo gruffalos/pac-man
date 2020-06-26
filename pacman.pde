@@ -165,14 +165,20 @@ class MazeType {
     }
   }
   boolean isSpace(int x, int y) {
+    return _getObject(x, y) != WALL;
+  }
+  boolean isFood(int x, int y) {
+    return _getObject(x, y) == FOOD;
+  }
+  int _getObject(int x, int y) {
     int row = (y + _size / 2) / _size;
     int col = (x + _size / 2) / _size;
     //println(x, y, row, col);
     if ((row < 0 || row >= _data.length) ||
       (col < 0 || col >= _data[row].length)) {
-      return false;
+      return WALL;
     }
-    return ((_data[row][col] == WALL) ? false : true);
+    return _data[row][col];
   }
   void _drawMaze() {
     for (int y = 0; y < _data.length; ++y) {
