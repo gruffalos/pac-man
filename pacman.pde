@@ -35,6 +35,7 @@ class PacmanType {
     ++_counter;
 
     boolean isOnGrid = ((_x % _gridSize) == 0 && (_y % _gridSize) == 0);
+
     if (isOnGrid) {
       switch (_dir) {
       case 0:
@@ -50,26 +51,24 @@ class PacmanType {
         _moveDown();
         break;
       }
+
+      if ((_moveX != 0 || _moveY != 0)) {
+        int row = (_y / _gridSize);
+        int col = (_x / _gridSize);
+        int newRow = row + _moveY; // must be in [-1, 0, 1]
+        int newCol = col + _moveX; // must be in [-1, 0, 1]
+        if (maze.isWall(newRow, newCol)) {
+          _moveX = 0;
+          _moveY = 0;
+        }
+      }
     }
 
-    int newX = _x + _moveX * _speed;
-    int newY = _y + _moveY * _speed;
-    int halfSize = _gridSize / 2 - 1; // yuck
+    // update position
+    _x += _moveX * _speed;
+    _y += _moveY * _speed;
 
-    println(_x, _y, "new", newX, newY, "dir", _dir);
-
-    if (!isOnGrid) {
-      _x = newX;
-      _y = newY;
-    } else if (maze.isSpace(newX - halfSize, newY - halfSize) &&
-      maze.isSpace(newX + halfSize, newY + halfSize) &&
-      maze.isSpace(newX + halfSize, newY - halfSize) &&
-      maze.isSpace(newX - halfSize, newY + halfSize)) {
-      _x = newX;
-      _y = newY;
-    } else {
-      // cannot move, or we'd run into a wall
-    }
+    // update mouth
     if ((_counter % 10) == 0) {
       if (_mouthSize >= PI/4) {
         _mouthSize = 0;
@@ -124,16 +123,13 @@ class MazeType {
     _data = data;
     _gridSize = gridSize;
   }
-  boolean isSpace(int x, int y) {
-    return _getObject(x, y) != WALL;
+  boolean isWall(int row, int col) {
+    return _getObject(row, col) == WALL;
   }
-  boolean isFood(int x, int y) {
-    return _getObject(x, y) == FOOD;
+  boolean isFood(int row, int col) {
+    return _getObject(row, col) == FOOD;
   }
-  int _getObject(int x, int y) {
-    int row = (y + _gridSize / 2) / _gridSize;
-    int col = (x + _gridSize / 2) / _gridSize;
-    //println(x, y, row, col);
+  int _getObject(int row, int col) {
     if ((row < 0 || row >= _data.length) ||
       (col < 0 || col >= _data[row].length)) {
       return WALL;
