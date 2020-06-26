@@ -1,5 +1,5 @@
 class PacmanType {
-  final int _speed = 10;
+  int _speed;
   int _x;
   int _y; 
   int _moveX, _moveY;
@@ -10,15 +10,20 @@ class PacmanType {
   int _gridSize;
 
   PacmanType(int col, int row, int dir, int gridSize) {
+    // sizes
+    _gridSize = gridSize;
     _halfGridSize = gridSize / 2;
+    // where is pacman?
     _x = col * gridSize;
     _y = row * gridSize;
     _dir = dir;
-    _gridSize = gridSize;
+    // default movement
+    _speed = gridSize / 10;
+    _moveRight();
+    // what does pacman look like?
     _mouth = 0;
     _mouthSize = PI/4;
     _size = gridSize * 9 / 10;
-    _moveRight();
   }
   void draw() {
     strokeWeight(5);
@@ -30,29 +35,9 @@ class PacmanType {
   }
   void update() {
     ++_counter;
-    int newX = _x + _moveX * _speed;
-    int newY = _y + _moveY * _speed;
-    int halfSize = _size / 2;
 
-
-    println(_x, _y, "new", newX, newY, "dir", _dir);
-    //noStroke();
-    if (maze.isSpace(newX - halfSize, newY - halfSize) &&
-      maze.isSpace(newX + halfSize, newY + halfSize) &&
-      maze.isSpace(newX + halfSize, newY - halfSize) &&
-      maze.isSpace(newX - halfSize, newY + halfSize)) {
-      _x = newX;
-      _y = newY;
-    }
-
-
-
-    if ((_x % _gridSize) == 0 && (_y % _gridSize) == 0) {
-      // is de nieuwe _x en _y gelijk aan voedsel? dan pak voedsel
-      fill(255);
-      stroke(255);
-      circle(newX * _size + _size / 2, newY * _size + _size / 2, _size / 10);
-
+    boolean isOnGrid = ((_x % _gridSize) == 0 && (_y % _gridSize) == 0);
+    if (isOnGrid) {
       switch (_dir) {
       case 0:
         _moveRight();
@@ -69,6 +54,24 @@ class PacmanType {
       }
     }
 
+    int newX = _x + _moveX * _speed;
+    int newY = _y + _moveY * _speed;
+    int halfSize = _size / 2;
+
+    println(_x, _y, "new", newX, newY, "dir", _dir);
+
+    if (!isOnGrid) {
+      _x = newX;
+      _y = newY;
+    } else if (maze.isSpace(newX - halfSize, newY - halfSize) &&
+      maze.isSpace(newX + halfSize, newY + halfSize) &&
+      maze.isSpace(newX + halfSize, newY - halfSize) &&
+      maze.isSpace(newX - halfSize, newY + halfSize)) {
+      _x = newX;
+      _y = newY;
+    } else {
+      // cannot move, or we'd run into a wall
+    }
     if ((_counter % 10) == 0) {
       if (_mouthSize >= PI/4) {
         _mouthSize = 0;
@@ -153,6 +156,7 @@ class MazeType {
           break;
         case '^':
           _pacman = new PacmanType(x, y, 0, _size);
+          _pacman.moveUp();
         case ' ':
         default:
           _data[y][x] = VOID;
