@@ -24,7 +24,7 @@ class PacmanType {
     strokeWeight(5);
     fill(255, 255, 0);
     // Circle draws clockwise..?    stroke(0);
-    arc(_x + 50, _y + 50, _size, _size, _mouth + _mouthSize / 2, _mouth + 2*PI - _mouthSize / 2, PIE);
+    arc(_x + _halfGridSize, _y + _halfGridSize, _size, _size, _mouth + _mouthSize / 2, _mouth + 2*PI - _mouthSize / 2, PIE);
     //fill(0);
     //rect(_x - 5, _y - 5, 10, 10);
   }
@@ -112,7 +112,7 @@ class PacmanType {
 }
 
 class MazeType {
-  final int _size = 100;
+  final int _size = 50;
   final int BIG_FOOD = 3;
   final int FOOD = 2;
   final int WALL = 1;
@@ -124,15 +124,15 @@ class MazeType {
     String repr[] = {
      //12345678911131517
       "XXXXXXXXXXXXXXXXX",// 1
-      "XffffffXffffffffX",// 2
+      "XfffffffXfffffffX",// 2
       "XfXfXfXfffXfXfXfX",// 3
       "XfXfffXXfXXfffXfX",// 4
-      "X   X X   X X   X",// 5
-      "XXX X   X   X XXX",// 6
-      "X   X X   X X   X",// 7
-      "X X   XX XX   X X",// 8
-      "X X X X ^ X X X X",// 9
-      "X       X       X",// 10
+      "XfffXfXfffXfXfffX",// 5
+      "XXXfXfffXfffXfXXX",// 6
+      "XfffXfXfffXfXfffX",// 7
+      "XfXfffXXfXXfffXfX",// 8
+      "XfXfXfXf^fXfXfXfX",// 9
+      "XfffffffXfffffffX",// 10
       "XXXXXXXXXXXXXXXXX",// 11
     };
 
@@ -170,7 +170,7 @@ class MazeType {
     }
     return ((_data[row][col] == WALL) ? false : true);
   }
-  void draw() {
+  void _drawMaze() {
     for (int y = 0; y < _data.length; ++y) {
       for (int x = 0; x < _data[y].length; ++x) {
         switch (_data[y][x]) {
@@ -192,6 +192,10 @@ class MazeType {
         }
       }
     }
+  }    
+  void draw() {
+    _drawMaze();
+    _pacman.draw();
   }
 }  
 
@@ -208,7 +212,6 @@ void setup() {
 void draw() {
   background(255);
   pacman.update();
-  pacman.draw();
   maze.draw();
 }
 
