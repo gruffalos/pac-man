@@ -181,18 +181,28 @@ class MazeConstructor {
 
   MazeConstructor() {
     String repr[] = {
-      //12345678911131517
-      "XXXXXXXXXXXXXXXXX", // 1
-      "XfffffffXfffffffX", // 2
-      "XfXfXfXfffXfXfXfX", // 3
-      "XfXfffXXfXXfffXfX", // 4
-      "XfffXfXfffXfXfffX", // 5
-      "XXXfXfffXfffXfXXX", // 6
-      "XfffXfXfffXfXfffX", // 7
-      "XfXfffXXfXXfffXfX", // 8
-      "XfXfXfXf^fXfXfXfX", // 9
-      "XfffffffXfffffffX", // 10
-      "XXXXXXXXXXXXXXXXX", // 11
+     //123456789111315171921232527293133353738
+      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // 1
+      "XfffffffffffffffffffffffffffffffffffffX", // 2
+      "XfffffffffffffffffffffffffffffffffffffX", // 3
+      "XfffffffffffffffffffffffffffffffffffffX", // 4
+      "XfffffffffffffffffffffffffffffffffffffX", // 5
+      "XfffffffffffffffffffffffffffffffffffffX", // 6
+      "XfffffffffffffffffffffffffffffffffffffX", // 7
+      "XfffffffffffffffffffffffffffffffffffffX", // 8
+      "Xfffffff^fffffffffffffffffffffffffffffX", // 9
+      "XfffffffffffffffffffffffffffffffffffffX", // 10
+      "XfffffffffffffffffffffffffffffffffffffX", // 11
+      "XfffffffffffffffffffffffffffffffffffffX", // 12
+      "XfffffffffffffffffffffffffffffffffffffX", // 13
+      "XfffffffffffffffffffffffffffffffffffffX", // 14
+      "XfffffffffffffffffffffffffffffffffffffX", // 15
+      "XfffffffffffffffffffffffffffffffffffffX", // 16
+      "XfffffffffffffffffffffffffffffffffffffX", // 17
+      "XfffffffffffffffffffffffffffffffffffffX", // 18
+      "XfffffffffffffffffffffffffffffffffffffX", // 19
+      "XfffffffffffffffffffffffffffffffffffffX", // 20
+      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // 21
     };
 
     int data[][] = new int[repr.length][];
