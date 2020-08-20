@@ -183,25 +183,25 @@ class MazeConstructor {
     String repr[] = {
      //123456789111315171921232527293133353738
       "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // 1
-      "XfffffffffffffffffffffffffffffffffffffX", // 2
-      "XfffffffffffffffffffffffffffffffffffffX", // 3
-      "XfffffffffffffffffffffffffffffffffffffX", // 4
-      "XfffffffffffffffffffffffffffffffffffffX", // 5
-      "XfffffffffffffffffffffffffffffffffffffX", // 6
-      "XfffffffffffffffffffffffffffffffffffffX", // 7
-      "XfffffffffffffffffffffffffffffffffffffX", // 8
-      "Xfffffff^fffffffffffffffffffffffffffffX", // 9
-      "XfffffffffffffffffffffffffffffffffffffX", // 10
-      "XfffffffffffffffffffffffffffffffffffffX", // 11
-      "XfffffffffffffffffffffffffffffffffffffX", // 12
-      "XfffffffffffffffffffffffffffffffffffffX", // 13
-      "XfffffffffffffffffffffffffffffffffffffX", // 14
-      "XfffffffffffffffffffffffffffffffffffffX", // 15
-      "XfffffffffffffffffffffffffffffffffffffX", // 16
-      "XfffffffffffffffffffffffffffffffffffffX", // 17
-      "XfffffffffffffffffffffffffffffffffffffX", // 18
-      "XfffffffffffffffffffffffffffffffffffffX", // 19
-      "XfffffffffffffffffffffffffffffffffffffX", // 20
+      "XffffXffffffffffffffffffffffffffXfffffX", // 2
+      "XffffXfXXXXffXXXXXfXfXXXXXfXXXXfXfffffX", // 3
+      "XffffXffffffffffffffffffffffffffXfffffX", // 4
+      "XffffXXXXXXfffffffffffffffffffffXfffffX", // 5
+      "XffffXffffffffffffffffffffffffffXfffffX", // 6
+      "XffffXffffffffffffffffffffffffffXfffffX", // 7
+      "XffffXffffffffffffffffffffffffffXfffffX", // 8
+      "XffffXff^fffffffffffffffffffffffXfffffX", // 9
+      "XffffXffffffffffffffffffffffffffXfffffX", // 10
+      "XffffXffffffffffffffffffffffffffXfffffX", // 11
+      "XffffXffffffffffffffffffffffffffXfffffX", // 12
+      "XffffXffffffffffffffffffffffffffXfffffX", // 13
+      "XffffXffffffffffffffffffffffffffXfffffX", // 14
+      "XffffXffffffffffffffffffffffffffXfffffX", // 15
+      "XffffXffffffffffffffffffffffffffXfffffX", // 16
+      "XffffXffffffffffffffffffffffffffXfffffX", // 17
+      "XffffXffffffffffffffffffffffffffXfffffX", // 18
+      "XffffXffffffffffffffffffffffffffXffffX", // 19
+      "XffffXffffffffffffffffffffffffffXfffffX", // 20
       "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // 21
     };
 
