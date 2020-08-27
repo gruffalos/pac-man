@@ -30,11 +30,14 @@ class PacmanType {
     arc(_x + _gridSize / 2, _y + _gridSize / 2, _size, _size, _mouth + _mouthSize / 2, _mouth + 2*PI - _mouthSize / 2, PIE);
     //fill(0);
     //rect(_x - 5, _y - 5, 10, 10);
+    if (_x <= 0) _x = (height + 200);
+    if (_x >= (height + 250)) _x = 0;
   }
   void update() {
     ++_counter;
 
     boolean isOnGrid = ((_x % _gridSize) == 0 && (_y % _gridSize) == 0);
+    
 
     if (isOnGrid) {
       switch (_dir) {
@@ -166,7 +169,7 @@ class MazeType {
         case BIG_FOOD:
           fill(#E8F743);
           stroke(#E8F743);
-          circle(x + _gridSize / 2, y + _gridSize / 2, _gridSize / 5);
+          circle(x + _gridSize / 2, y + _gridSize / 2, _gridSize / 2);
           break;
         }
       }
@@ -177,32 +180,32 @@ class MazeType {
 class MazeConstructor {
   final int _gridSize = 50;
   PacmanType pacman;
-  MazeType maze;
+MazeType maze;
 
   MazeConstructor() {
     String repr[] = {
      //123456789111315171921232527293133353738
-      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // 1
-      "XfffffXffffffffffffXffffffffffffXfffffX", // 2
-      "XfffffXfXXXXfXXXXXfXfXXXXXfXXXXfXfffffX", // 3
-      "XfffffXfXXXXfXXXXXfXfXXXXXfXXXXfXfffffX", // 4
-      "XfffffXfffffffffffffffffffffffffXfffffX", // 5
-      "XfffffXXXXXXfXfffXXXXXfffXfXXXXXXfffffX", // 6
-      "Xfffff     XfXXXfffXfffXXXfX     fffffX", // 7
-      "XfffffXXXXXXfXfffffffffffXfXXXXXXfffffX", // 8
-      "XfffffXffffffffXXXX XXXXffffffffXfffffX", // 9
-      "XfffffXXXXXXfXfX       XfXfXXXXXXfffffX", // 10
-      "Xfffff     XfXfXXXXXXXXXfXfX     fffffX", // 11
-      "Xfffff     XfXfffffffffffXfX     fffffX", // 12
-      "XfffffXXXXXXfXfXXXXXXXXXfffXXXXXXfffffX", // 13
-      "XfffffXffffffffffffXffffffffffffXfffffX", // 14
-      "XfffffXfXXXfXXXXXXfXfXXXXXfXXXXfXfffffX", // 15
-      "XfffffXfffXffffffff^fffffffXffffXfffffX", // 16
-      "XfffffXXXfXfXfXXXXXXXXXXXXfXffXXXfffffX", // 17
-      "XfffffXfffffXffffffXffffffffffffXfffffX", // 18
-      "XfffffXfXXXXXXXXXXfXfXXXXXXXXXXfXfffffX", // 19
-      "XfffffXfffffffffffffffffffffffffXfffffX", // 20
-      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // 21
+      "XXXXXXXXXXXXXXXXXXXXXXXXXXX", // 1
+      "XffffffffffffXffffffffffffX", // 2
+      "XfXXXXfXXXXXfXfXXXXXfXXXXfX", // 3
+      "XFXXXXfXXXXXfXfXXXXXfXXXXFX", // 4
+      "XfffffffffffffffffffffffffX", // 5
+      "XXXXXXfXfffXXXXXfffXfXXXXXX", // 6
+      "     XfXXX   X   XXXfX     ", // 7
+      "XXXXXXfX           XfXXXXXX", // 8
+      "      f  XXXX XXXX  f      ", // 9
+      "XXXXXXfX X       X XfXXXXXX", // 10
+      "     XfX XXXXXXXXX XfX     ", // 11
+      "     XfX           XfX     ", // 12
+      "XXXXXXfX XXXXXXXXX XfXXXXXX", // 13
+      "XffffffffffffXffffffffffffX", // 14
+      "XfXXXfXfXXXXfXfXXXXXfXXXXfX", // 15
+      "XFffXfXffffff^fffffffXfffFX", // 16
+      "XXXfXfXfXXXXXXXXXXXXfXffXXX", // 17
+      "XffffffffffffXffffffffffffX", // 18
+      "XfXXXXXXXXXXfXfXXXXXXXXXXfX", // 19
+      "XfffffffffffffffffffffffffX", // 20
+      "XXXXXXXXXXXXXXXXXXXXXXXXXXX", // 21
     };
 
     int data[][] = new int[repr.length][];
@@ -245,8 +248,8 @@ MazeType maze;
 PacmanType pacman;
 
 void setup() {
-  fullScreen();
-  //size(800, 800);
+  //fullScreen();
+  size(1350, 1020);
   MazeConstructor mc = new MazeConstructor();
   pacman = mc.pacman;
   maze = mc.maze;
