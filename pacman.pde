@@ -27,7 +27,7 @@ class PacmanType {
     strokeWeight(5);
     fill(255, 255, 0);
     // Circle draws clockwise..?    stroke(0);
-    arc(_x + _gridSize / 2, _y + _gridSize / 2, _size, _size, _mouth + _mouthSize / 2, _mouth + 2*PI - _mouthSize / 2, PIE);
+    arc(_x + _gridSize/ 2, _y + _gridSize / 2, _size, _size, _mouth + _mouthSize / 2, _mouth + 2*PI - _mouthSize / 2, PIE);
     //fill(0);
     //rect(_x - 5, _y - 5, 10, 10);
     if (_x <= 0) _x = (height + 200);
@@ -37,7 +37,10 @@ class PacmanType {
     ++_counter;
 
     boolean isOnGrid = ((_x % _gridSize) == 0 && (_y % _gridSize) == 0);
-    
+
+    if ((pacman._x % _gridSize) == 0 && (pacman._y % _gridSize) == 0) {
+      
+    }
 
     if (isOnGrid) {
       switch (_dir) {
@@ -64,6 +67,11 @@ class PacmanType {
           _moveX = 0;
           _moveY = 0;
         }
+        if (maze.isFood(newRow, newCol)) {
+          maze._data[newRow][newCol] = 0; //MazeType::VOID;
+        int score = 0; score += 1;
+        println(score);
+        }
       }
     }
 
@@ -83,9 +91,9 @@ class PacmanType {
   void eten_verwijderen() {
     if ((_x % _gridSize) == 0 && (_y % _gridSize) == 0) {
       // is de nieuwe _x en _y gelijk aan voedsel? dan pak voedsel
-      //point(_x * _size + _size / 2, _y * _size + _size / 2, _size / 10);
+      point(_x * _size + _size / 2, _y * _size + _size, _size);
       fill(255);
-      ellipse(_x + 50,_y + 50, 20, 20);
+      ellipse(_x + _size, _y + _size, _size, _size);
       int food_etted = 0;
       ++food_etted;
       println(food_etted);
@@ -126,7 +134,7 @@ class PacmanType {
 }
 
 class MazeType {
-  static final int BIG_FOOD = 3;
+  static final int BIG_FOOD= 3;
   static final int FOOD = 2;
   static final int WALL = 1;
   static final int VOID = 0;
@@ -175,18 +183,18 @@ class MazeType {
       }
     }
   }
-}  
+}
 
 class MazeConstructor {
   final int _gridSize = 50;
   PacmanType pacman;
-MazeType maze;
+  MazeType maze;
 
   MazeConstructor() {
     String repr[] = {
-     //123456789111315171921232527293133353738
+      //123456789111315171921232527293133353738
       "XXXXXXXXXXXXXXXXXXXXXXXXXXX", // 1
-      "XffffffffffffXffffffffffffX", // 2
+      "X^fffffffffffXffffffffffffX", // 2
       "XfXXXXfXXXXXfXfXXXXXfXXXXfX", // 3
       "XFXXXXfXXXXXfXfXXXXXfXXXXFX", // 4
       "XfffffffffffffffffffffffffX", // 5
@@ -199,9 +207,9 @@ MazeType maze;
       "     XfX           XfX     ", // 12
       "XXXXXXfX XXXXXXXXX XfXXXXXX", // 13
       "XffffffffffffXffffffffffffX", // 14
-      "XfXXXfXfXXXXfXfXXXXXfXXXXfX", // 15
-      "XFffXfXffffff^fffffffXfffFX", // 16
-      "XXXfXfXfXXXXXXXXXXXXfXffXXX", // 17
+      "XfXXXfXfXXXXfXfXXXXfXfXXXfX", // 15
+      "XFffXfXfffffffffffffXfXffFX", // 16
+      "XXXfXfXfXXXXXXXXXXXfXfXfXXX", // 17
       "XffffffffffffXffffffffffffX", // 18
       "XfXXXXXXXXXXfXfXXXXXXXXXXfX", // 19
       "XfffffffffffffffffffffffffX", // 20
