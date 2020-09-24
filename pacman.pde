@@ -7,6 +7,7 @@ class PacmanType {
   int _dir;
   float _mouth, _mouthSize;
   int _counter, _size;
+  int score = 0;
 
   PacmanType(int col, int row, int gridSize) {
     // sizes
@@ -39,7 +40,6 @@ class PacmanType {
     boolean isOnGrid = ((_x % _gridSize) == 0 && (_y % _gridSize) == 0);
 
     if ((pacman._x % _gridSize) == 0 && (pacman._y % _gridSize) == 0) {
-      
     }
 
     if (isOnGrid) {
@@ -68,9 +68,14 @@ class PacmanType {
           _moveY = 0;
         }
         if (maze.isFood(newRow, newCol)) {
+          maze._data[newRow][newCol] = 0; //MazeType::VOID; 
+          score += 10;
+          println(score);
+        }
+        if (maze.isBigFood(newRow, newCol)) {
           maze._data[newRow][newCol] = 0; //MazeType::VOID;
-        int score = 0; score += 1;
-        println(score);
+          score += 100;
+          println(score);
         }
       }
     }
@@ -86,17 +91,6 @@ class PacmanType {
       } else {
         _mouthSize = PI/4;
       }
-    }
-  }
-  void eten_verwijderen() {
-    if ((_x % _gridSize) == 0 && (_y % _gridSize) == 0) {
-      // is de nieuwe _x en _y gelijk aan voedsel? dan pak voedsel
-      point(_x * _size + _size / 2, _y * _size + _size, _size);
-      fill(255);
-      ellipse(_x + _size, _y + _size, _size, _size);
-      int food_etted = 0;
-      ++food_etted;
-      println(food_etted);
     }
   }
   void moveLeft() {
@@ -151,6 +145,9 @@ class MazeType {
   boolean isFood(int row, int col) {
     return _getObject(row, col) == FOOD;
   }
+  boolean isBigFood(int row, int col) {
+    return _getObject(row, col) == BIG_FOOD;
+  }
   int _getObject(int row, int col) {
     if ((row < 0 || row >= _data.length) ||
       (col < 0 || col >= _data[row].length)) {
@@ -194,7 +191,7 @@ class MazeConstructor {
     String repr[] = {
       //123456789111315171921232527293133353738
       "XXXXXXXXXXXXXXXXXXXXXXXXXXX", // 1
-      "X^fffffffffffXffffffffffffX", // 2
+      "XffffffffffffXffffffffffffX", // 2
       "XfXXXXfXXXXXfXfXXXXXfXXXXfX", // 3
       "XFXXXXfXXXXXfXfXXXXXfXXXXFX", // 4
       "XfffffffffffffffffffffffffX", // 5
@@ -206,13 +203,13 @@ class MazeConstructor {
       "     XfX XXXXXXXXX XfX     ", // 11
       "     XfX           XfX     ", // 12
       "XXXXXXfX XXXXXXXXX XfXXXXXX", // 13
-      "XffffffffffffXffffffffffffX", // 14
+      "XffffffffffffXff^fffffffffX", // 14
       "XfXXXfXfXXXXfXfXXXXfXfXXXfX", // 15
       "XFffXfXfffffffffffffXfXffFX", // 16
       "XXXfXfXfXXXXXXXXXXXfXfXfXXX", // 17
       "XffffffffffffXffffffffffffX", // 18
       "XfXXXXXXXXXXfXfXXXXXXXXXXfX", // 19
-      "XfffffffffffffffffffffffffX", // 20
+      "XffffffffffffFffffffffffffX", // 20
       "XXXXXXXXXXXXXXXXXXXXXXXXXXX", // 21
     };
 
